@@ -8,7 +8,7 @@ from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM, SpeedPercent
 import json
 import os
 import sys
-
+import urllib.request
 ORIENTATION = ['right', 'down', 'left', 'up']
 ORIENTATION_COUNTER = 0
 
@@ -22,6 +22,12 @@ def beep(number_of_beeps=1, seconds=1, frequency=1000):
     for i in range(number_of_beeps):
         sound.play_tone(frequency, seconds*1)
         sleep(0.5)
+
+def get_locations_url(url):
+    res = urllib.request.urlopen(url)
+    data = res.read()
+    txt = data.decode("utf-8")
+    return json.load(txt)
 
 def get_locations(file='zemljevid.json'):
     # read file
