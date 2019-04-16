@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 from ev3dev2.sensor.lego import ColorSensor, GyroSensor
 from time import sleep
 from ev3dev2.sound import Sound
@@ -9,6 +8,9 @@ import json
 import os
 import sys
 import urllib.request
+from move_straight import MoveStraight
+
+
 ORIENTATION = ['right', 'down', 'left', 'up']
 ORIENTATION_COUNTER = 0
 
@@ -96,36 +98,39 @@ def move(current_location, next_location):
 if __name__ == "__main__":
     os.system('setfont Lat15-TerminusBold14')
 
-    cl = ColorSensor()
+    # cl = ColorSensor()
     gyro = GyroSensor()
     gyro.mode = GyroSensor.MODE_GYRO_RATE
     gyro.mode = GyroSensor.MODE_GYRO_ANG
-    sound = Sound()
-    lm = LargeMotor()
+    # sound = Sound()
+    # lm = LargeMotor()
     tank_drive = MoveTank(OUTPUT_B, OUTPUT_C)
-    motor_pair = MoveSteering(OUTPUT_B, OUTPUT_C)
+    # motor_pair = MoveSteering(OUTPUT_B, OUTPUT_C)
 
-    # color values
-    black = 1
-    blue = 2
-    yellow = 4
-    red = 5
+    move_straight = MoveStraight(tank_drive, gyro)
+    move_straight(20)
 
-    locations = get_locations()
-    start = locations.pop('start')
-    debug_print(locations)
-    debug_print(start)
-    for person, location in sorted(locations.items()):
-        debug_print(person)
-        debug_print(location)
+    # # color values
+    # black = 1
+    # blue = 2
+    # yellow = 4
+    # red = 5
 
-    debug_print(locations['oseba1'])
+    # locations = get_locations()
+    # start = locations.pop('start')
+    # debug_print(locations)
+    # debug_print(start)
+    # for person, location in sorted(locations.items()):
+    #     debug_print(person)
+    #     debug_print(location)
 
-    debug_print('Angle:', gyro.angle)
+    # debug_print(locations['oseba1'])
 
-    move(start, locations['oseba1'])
-    move(locations['oseba1'], start)
-    move(start, locations['oseba2'])
+    # debug_print('Angle:', gyro.angle)
+
+    # move(start, locations['oseba1'])
+    # move(locations['oseba1'], start)
+    # move(start, locations['oseba2'])
 
     # motor_pair.on_for_seconds(steering=0, speed=40, seconds=3.5)
     # move_straight(70)

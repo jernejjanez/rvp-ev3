@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import time
 import math
 
@@ -50,6 +51,7 @@ def _bell_curve(i):
         return 0
     else:
         return a[i]
+
 
 if __name__ == "__main__":
     import random
