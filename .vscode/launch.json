@@ -8,7 +8,7 @@
             "name": "Download and Run",
             "type": "ev3devBrowser",
             "request": "launch",
-            "program": "/home/robot/rvp-ev3/${relativeFile}"
+            "program": "/home/robot/rvp-ev3/main.py"
         }
     ]
 }

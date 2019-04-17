@@ -2,6 +2,7 @@
 from ev3dev2.sensor.lego import ColorSensor, GyroSensor
 from time import sleep
 from ev3dev2.sound import Sound
+from ev3dev.core import Motor
 from ev3dev2.motor import LargeMotor, OUTPUT_B, OUTPUT_C, MoveTank, MoveSteering
 from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM, SpeedPercent
 import json
@@ -106,9 +107,9 @@ if __name__ == "__main__":
     # lm = LargeMotor()
     tank_drive = MoveTank(OUTPUT_B, OUTPUT_C)
     # motor_pair = MoveSteering(OUTPUT_B, OUTPUT_C)
-
-    move_straight = MoveStraight(tank_drive, gyro)
-    move_straight(20)
+    l,r = Motor(OUTPUT_B), Motor(OUTPUT_C)
+    move_straight = MoveStraight(l,r, gyro)
+    move_straight(150)
 
     # # color values
     # black = 1
