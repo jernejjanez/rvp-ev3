@@ -3,7 +3,7 @@ import time
 import math
 
 class PID:
-    def __init__(self, Kp, Ki, Kd, bias=0, max_val=math.inf, min_val=-math.inf):
+    def __init__(self, Kp, Ki, Kd, bias=0, max_val=math.inf, min_val=-math.inf, debug=False):
         self.error_old = 0
         self.integral = 0
         self.time_prev = 0
@@ -15,6 +15,7 @@ class PID:
         self.bias = bias
         self.max_val = max_val
         self.min_val = min_val
+        self.debug=debug
 
     def __call__(self, error):
         current_time = time.time()
@@ -32,12 +33,14 @@ class PID:
             control = self.Kp*error
         self.error_old = error
         self.time_prev = current_time
-
+        if self.debug:
+            old_control = control
         if control > self.max_val:
             control = self.max_val
         elif control < self.min_val:
             control = self.min_val
-        
+        if self.debug:
+            return control, old_control
         return control
     
     def reset(self):

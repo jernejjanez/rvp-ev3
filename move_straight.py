@@ -3,7 +3,7 @@ from pid import PID
 import math
 import time
 import sys
-
+import os
 class MoveStraight:
     def __init__(self,left_motor, right_motor, gyro):
         #self.tank_pair = tank_pair
@@ -11,12 +11,16 @@ class MoveStraight:
         #self.pid_right = PID(5,0.2,0.1, max_val=10, min_val=-10)
         self.left_motor = left_motor
         self.right_motor = right_motor
-        self.pid_rotation = PID(5,0.2,0.1, max_val=10, min_val=-10)
-        self.pid_straight = PID(3,0.5,0, max_val=90, min_val=-90)
-        
+        self.left_motor.ramp_up_sp = 3000
+        self.right_motor.ramp_up_sp = 3000
+        # 50,0,22 je najbolš do zdej
+        self.pid_rotation = PID(50,20,22, max_val=self.left_motor.max_speed*0.25, min_val=-self.left_motor.max_speed*0.25, debug=True)
+        self.pid_straight = PID(80,0,0, max_val=self.left_motor.max_speed-self.left_motor.max_speed*0.25, min_val=-self.left_motor.max_speed+self.left_motor.max_speed*0.25, debug=True)
+        print(self.left_motor.max_speed)
         self.time_period = 0.1 # s
         self.gyro = gyro
-        
+
+        os.system("cat debug.log >> debug.log.old; rm debug.log")
 
         # r = 1.84 cm alpa (kolo) hitrost 1560 °/s
         # r = 2.744 cm hitrost 1050 °/s
@@ -29,39 +33,59 @@ class MoveStraight:
         This shows up in the output panel in VS Code. 
         '''
         print(*args, **kwargs, file=sys.stderr)
+    
+    def print_to_file(self, string):
+        with open("debug.log",'a') as f:
+            f.write(string)
 
-    def _cm_moved(self,speed_percent, time_passed):
-        speed_deg_per_s_current = self.speed_deg_per_s*(speed_percent/100)
-        speed_cm_per_s = (speed_deg_per_s_current/360)*2*math.pi*self.r
-        return speed_cm_per_s*self.time_period
+    def _cm_moved(self,time_passed):
+        cnts_p_s = (self.left_motor.speed+self.right_motor.speed)/2
+        cnts_p_rot = self.left_motor.count_per_rot
+        rot_p_s = cnts_p_s/cnts_p_rot
+
+        #speed_deg_per_s_current = self.speed_deg_per_s*(speed_percent/100)
+        #speed_cm_per_s = (speed_deg_per_s_current/360)*2*math.pi*self.r
+        #return speed_cm_per_s*self.time_period
+        return rot_p_s*time_passed*2*math.pi*self.r
 
     def __call__(self,centimeters):
         starting_angle = self.gyro.angle
         curr_path = 0
         end_time=time.time()+0.5
         old_speed=0
+        rotation_integrl = 0
+        old_angle = 0
+        self.print_to_file("---start-straight----\n")
+        self.print_to_file("pid_straight:"+str(self.pid_straight.Kp)+","+str(self.pid_straight.Ki)+","+str(self.pid_straight.Kd))
+        self.print_to_file(","+"pid_rotation:"+str(self.pid_rotation.Kp)+","+str(self.pid_rotation.Ki)+","+str(self.pid_rotation.Kd)+"\n")
+        begin_time=time.time()
         while 1:
-            begin_time=time.time()
             if (abs(curr_path - centimeters)<0.2):
                 #self.pid_left.reset()
                 #self.pid_right.reset()
+                #self.tank_pair.off(brake=True)
+                self.left_motor.command="stop"
+                self.right_motor.command="stop"
                 self.pid_rotation.reset()
                 self.pid_straight.reset()
-                
-                self.tank_pair.off(brake=True)
+                self.print_to_file("...end-straight...\n")
                 break
 
             # Pid for straight path
-            speed_straight = self.pid_straight(centimeters-curr_path)
+            err_path = centimeters-curr_path
+            speed_straight, real_straight_reg = self.pid_straight(err_path)
             #self.debug_print("error:", centimeters-curr_path)
-            self.debug_print("regval:",speed_straight)
+            #self.debug_print("regval:",speed_straight)
             
             # rotation pid
             # TODO: prevert da so napake pravilne
             # Note: napake so različno računane je gledano na kot aktuatorja
             #angle_reduction_left = self.pid_left(starting_angle - self.gyro.angle)
             #angle_reduction_right = self.pid_right(self.gyro.angle - starting_angle)
-            angle_reduction = self.pid_rotation(starting_angle - self.gyro.angle)
+            err_angle =starting_angle - self.gyro.angle
+            
+
+            angle_reduction,  real_angle_reg = self.pid_rotation(rotation_integrl)
             #self.debug_print("angle_left:", angle_reduction, "current angle:",self.gyro.angle,"wanted angle:",starting_angle)
 
             
@@ -72,13 +96,23 @@ class MoveStraight:
             #time.sleep(self.time_period)
             #self.debug_print()
             #self.tank_pair.on(left_speed=speed_straight+angle_reduction, right_speed=speed_straight-angle_reduction)
-            self.left_motor.speed_sp = speed_straight+angle_reduction
-            self.right_motor.speed_sp = speed_straight-angle_reduction
-            self.left_motor.command('run-forever')
-            self.right_motor.command('run-forever')
+            l_speed=speed_straight+angle_reduction
+            r_speed=speed_straight-angle_reduction
+            self.left_motor.speed_sp = l_speed
+            self.right_motor.speed_sp = r_speed
+            self.left_motor.command='run-forever'
+            self.right_motor.command='run-forever'
+            self.print_to_file(str(err_path)+","+str(speed_straight)+","+str(real_straight_reg)+','+str(angle_reduction)+','+str(real_angle_reg)+','+str(l_speed)+","+str(r_speed)+','+str(err_angle))
+
             end_time=time.time()
-            curr_path += self._cm_moved(old_speed,end_time-begin_time)
+            time_passed = end_time-begin_time
+            begin_time=time.time()
+            curr_path += self._cm_moved(time_passed)
+            rotation_integrl += time_passed*(err_angle+old_angle)/2
+            old_angle = err_angle
+            self.print_to_file(','+str(time_passed)+","+str(curr_path)+","+str(rotation_integrl)+"\n")
             #self.debug_print("time_passed: ",end_time-begin_time)            
+            
 
 
 class tp_dummy:
