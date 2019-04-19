@@ -39,6 +39,7 @@ class MoveStraight:
             f.write(string)
 
     def _cm_moved(self,time_passed):
+        self.debug_print(self.left_motor.speed,",",self.right_motor.speed)
         cnts_p_s = (self.left_motor.speed+self.right_motor.speed)/2
         cnts_p_rot = self.left_motor.count_per_rot
         rot_p_s = cnts_p_s/cnts_p_rot
@@ -51,7 +52,6 @@ class MoveStraight:
     def __call__(self,centimeters):
         starting_angle = self.gyro.angle
         curr_path = 0
-        end_time=time.time()+0.5
         old_speed=0
         rotation_integrl = 0
         old_angle = 0
@@ -66,6 +66,8 @@ class MoveStraight:
                 #self.tank_pair.off(brake=True)
                 self.left_motor.command="stop"
                 self.right_motor.command="stop"
+                self.left_motor.speed_sp = 0
+                self.right_motor.speed_sp = 0
                 self.pid_rotation.reset()
                 self.pid_straight.reset()
                 self.print_to_file("...end-straight...\n")

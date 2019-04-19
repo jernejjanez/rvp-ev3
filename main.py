@@ -110,7 +110,15 @@ if __name__ == "__main__":
     move_straight = MoveStraight(l,r, gyro)
     beep(seconds=0.5)
     sleep(1)
-    move_straight(150)
+    #for i in range(15):
+    move_straight(10)
+    beep(seconds=0.5,number_of_beeps=2)   
+    move_straight(-10)
+
+    #move_straight(150)
+    #beep(seconds=0.5,number_of_beeps=2)
+    #move_straight(-150)
+
 
     # # color values
     # black = 1
