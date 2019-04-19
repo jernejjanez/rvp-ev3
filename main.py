@@ -109,7 +109,7 @@ if __name__ == "__main__":
     l,r = Motor(OUTPUT_B), Motor(OUTPUT_C)
     move_straight = MoveStraight(l,r, gyro)
     beep(seconds=0.5)
-    sleep(5)
+    sleep(1)
     move_straight(150)
 
     # # color values
