@@ -11,8 +11,7 @@ class MoveStraight:
         #self.pid_right = PID(5,0.2,0.1, max_val=10, min_val=-10)
         self.left_motor = left_motor
         self.right_motor = right_motor
-        self.left_motor.ramp_up_sp = 3000
-        self.right_motor.ramp_up_sp = 3000
+        
         # 5,1,15 je najbolš do zdej
         self.pid_rotation = PID(5,1,15, max_val=self.left_motor.max_speed*0.25, min_val=-self.left_motor.max_speed*0.25, debug=True)
         self.pid_straight = PID(80,0,0, max_val=self.left_motor.max_speed-self.left_motor.max_speed*0.25, min_val=-self.left_motor.max_speed+self.left_motor.max_speed*0.25, debug=True)
@@ -50,6 +49,9 @@ class MoveStraight:
         return rot_p_s*time_passed*2*math.pi*self.r
 
     def __call__(self,centimeters):
+        self.left_motor.ramp_up_sp = 3000
+        self.right_motor.ramp_up_sp = 3000
+        #self.__init__(self.left_motor,self.right_motor, self.gyro)
         starting_angle = self.gyro.angle
         curr_path = 0
         old_speed=0

@@ -9,7 +9,7 @@ import os
 import sys
 import urllib.request
 from move_straight import MoveStraight
-
+from rotation import Rotation
 
 ORIENTATION = ['right', 'down', 'left', 'up']
 ORIENTATION_COUNTER = 0
@@ -104,16 +104,44 @@ if __name__ == "__main__":
     gyro.mode = GyroSensor.MODE_GYRO_ANG
     sound = Sound()
     # lm = LargeMotor()
-    tank_drive = MoveTank(OUTPUT_B, OUTPUT_C)
+    #tank_drive = MoveTank(OUTPUT_B, OUTPUT_C)
     # motor_pair = MoveSteering(OUTPUT_B, OUTPUT_C)
     l,r = Motor(OUTPUT_B), Motor(OUTPUT_C)
     move_straight = MoveStraight(l,r, gyro)
+    rotate = Rotation(l,r, gyro)
     beep(seconds=0.5)
     sleep(1)
+    #for i in range(10):
+        #rotate((i+1)*-360)
+    #    rotate(360+i*360)
+
+    move_straight(20)
+    rotate(90)
+
+    move_straight(20)
+    rotate(180)
+
+    move_straight(20)
+    rotate(270)
+
+    move_straight(20)
+    rotate(360)
+    
+    
     #for i in range(15):
-    move_straight(10)
-    beep(seconds=0.5,number_of_beeps=2)   
-    move_straight(-10)
+    #move_straight(10)
+    #beep(seconds=0.5,number_of_beeps=2)   
+    #move_straight(-10)
+    #move_straight(-150)
+
+    #gyro = GyroSensor()
+    #gyro.mode = GyroSensor.MODE_GYRO_RATE
+    #gyro.mode = GyroSensor.MODE_GYRO_ANG
+    #sound = Sound()
+    #l,r = Motor(OUTPUT_B), Motor(OUTPUT_C)
+    #move_straight = MoveStraight(l,r, gyro)
+
+    #beep(seconds=0.5,number_of_beeps=2)   
 
     #move_straight(150)
     #beep(seconds=0.5,number_of_beeps=2)
