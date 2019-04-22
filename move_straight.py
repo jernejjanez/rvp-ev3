@@ -52,7 +52,7 @@ class MoveStraight:
         self.left_motor.ramp_up_sp = 3000
         self.right_motor.ramp_up_sp = 3000
         #self.__init__(self.left_motor,self.right_motor, self.gyro)
-        starting_angle = self.gyro.angle
+        starting_angle = self.gyro.angle()
         curr_path = 0
         old_speed=0
         rotation_integrl = 0
@@ -86,7 +86,7 @@ class MoveStraight:
             # Note: napake so različno računane je gledano na kot aktuatorja
             #angle_reduction_left = self.pid_left(starting_angle - self.gyro.angle)
             #angle_reduction_right = self.pid_right(self.gyro.angle - starting_angle)
-            err_angle =starting_angle - self.gyro.angle
+            err_angle =starting_angle - self.gyro.angle()
             
 
             angle_reduction,  real_angle_reg = self.pid_rotation(rotation_integrl)

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-from ev3dev2.sensor.lego import ColorSensor, GyroSensor
+from ev3dev2.sensor.lego import ColorSensor#, GyroSensor
+from gyro_correcter import GyroSensor
 from time import sleep
 from ev3dev2.sound import Sound
 from ev3dev2.motor import Motor, LargeMotor, OUTPUT_B, OUTPUT_C, MoveTank, MoveSteering
@@ -10,6 +11,7 @@ import sys
 import urllib.request
 from move_straight import MoveStraight
 from rotation import Rotation
+from calc_distances import *
 
 ORIENTATION = ['right', 'down', 'left', 'up']
 ORIENTATION_COUNTER = 0
@@ -97,37 +99,78 @@ def move(current_location, next_location):
 
 if __name__ == "__main__":
     os.system('setfont Lat15-TerminusBold14')
-
-    # cl = ColorSensor()
+    debug_print("start")
+    points = CalcDistances(get_locations())
+    debug_print(str(points.next_person.coords))
+    cl = ColorSensor()
     gyro = GyroSensor()
-    gyro.mode = GyroSensor.MODE_GYRO_RATE
-    gyro.mode = GyroSensor.MODE_GYRO_ANG
     sound = Sound()
-    # lm = LargeMotor()
-    #tank_drive = MoveTank(OUTPUT_B, OUTPUT_C)
-    # motor_pair = MoveSteering(OUTPUT_B, OUTPUT_C)
     l,r = Motor(OUTPUT_B), Motor(OUTPUT_C)
+
     move_straight = MoveStraight(l,r, gyro)
     rotate = Rotation(l,r, gyro)
+    current_coords = Coordinates([points.start.x, points.start.y])
+    current_orientation = 0
     beep(seconds=0.5)
     sleep(1)
+
+    while points.next_person:
+        coords_to_move = points.next_person.coords
+        move_in_x = coords_to_move.x - current_coords.x
+        move_straight(move_in_x)
+        current_coords.x += move_in_x
+
+        move_in_y = coords_to_move.y - current_coords.y
+        if move_in_y > 0:
+            rotate(gyro.angle() + 90)
+            current_orientation += 90
+        elif move_in_y < 0:
+            rotate(gyro.angle() - 90)
+            current_orientation -= 90
+        
+        # TODO: dokončej premik in čekiri da bo pravilno orientiran k bo šu v x
+
+
+    
+
     #for i in range(10):
         #rotate((i+1)*-360)
     #    rotate(360+i*360)
 
-    move_straight(20)
+    #move_straight(20)
+    rotate(-180)
+    beep(seconds=0.5)
+
+    '''rotate(0)
+    beep(seconds=0.5)
     rotate(90)
+    beep(seconds=0.5)
+    rotate(0)
+    beep(seconds=0.5)
+
+    rotate(270)
+    beep(seconds=0.5)
+
+    rotate(0)
+    beep(seconds=0.5)
+
+    rotate(360)
+    beep(seconds=0.5)'''
 
     move_straight(20)
     rotate(180)
+    beep(seconds=0.5)
 
     move_straight(20)
     rotate(270)
+    beep(seconds=0.5)
 
     move_straight(20)
     rotate(360)
-    
-    
+    beep(seconds=0.5)
+    rotate(360*2)
+    beep(seconds=0.5)
+
     #for i in range(15):
     #move_straight(10)
     #beep(seconds=0.5,number_of_beeps=2)   

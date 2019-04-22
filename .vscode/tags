@@ -1,0 +1,118 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	Development	//
+.test.py	../.test.py	1;"	kind:file	line:1
+CalcDistances	../calc_distances.py	/^class CalcDistances:$/;"	kind:class	line:22
+ColorSensor	../main.py	/^from ev3dev2.sensor.lego import ColorSensor#, GyroSensor$/;"	kind:namespace	line:2
+Coordinates	../calc_distances.py	/^class Coordinates:$/;"	kind:class	line:3
+GyroSensor	../gyro_correcter.py	/^class GyroSensor:$/;"	kind:class	line:3
+GyroSensor	../main.py	/^from gyro_correcter import GyroSensor$/;"	kind:namespace	line:3
+LargeMotor	../main.py	/^from ev3dev2.motor import Motor, LargeMotor, OUTPUT_B, OUTPUT_C, MoveTank, MoveSteering$/;"	kind:namespace	line:6
+Motor	../main.py	/^from ev3dev2.motor import Motor, LargeMotor, OUTPUT_B, OUTPUT_C, MoveTank, MoveSteering$/;"	kind:namespace	line:6
+MoveSteering	../main.py	/^from ev3dev2.motor import Motor, LargeMotor, OUTPUT_B, OUTPUT_C, MoveTank, MoveSteering$/;"	kind:namespace	line:6
+MoveStraight	../main.py	/^from move_straight import MoveStraight$/;"	kind:namespace	line:12
+MoveStraight	../move_straight.py	/^class MoveStraight:$/;"	kind:class	line:7
+MoveTank	../main.py	/^from ev3dev2.motor import Motor, LargeMotor, OUTPUT_B, OUTPUT_C, MoveTank, MoveSteering$/;"	kind:namespace	line:6
+ORIENTATION	../main.py	/^ORIENTATION = ['right', 'down', 'left', 'up']$/;"	kind:variable	line:16
+ORIENTATION_COUNTER	../main.py	/^ORIENTATION_COUNTER = 0$/;"	kind:variable	line:17
+OUTPUT_B	../main.py	/^from ev3dev2.motor import Motor, LargeMotor, OUTPUT_B, OUTPUT_C, MoveTank, MoveSteering$/;"	kind:namespace	line:6
+OUTPUT_C	../main.py	/^from ev3dev2.motor import Motor, LargeMotor, OUTPUT_B, OUTPUT_C, MoveTank, MoveSteering$/;"	kind:namespace	line:6
+PID	../move_straight.py	/^from pid import PID$/;"	kind:namespace	line:2
+PID	../pid.py	/^class PID:$/;"	kind:class	line:5
+PID	../rotation.py	/^from pid import PID$/;"	kind:namespace	line:1
+PID	../rotation_by_rot_speed.py	/^from pid import PID$/;"	kind:namespace	line:1
+Person	../calc_distances.py	/^class Person:$/;"	kind:class	line:13
+Rotation	../main.py	/^from rotation import Rotation$/;"	kind:namespace	line:13
+Rotation	../rotation.py	/^class Rotation:$/;"	kind:class	line:4
+Rotation	../rotation_by_rot_speed.py	/^class Rotation:$/;"	kind:class	line:4
+Sound	../main.py	/^from ev3dev2.sound import Sound$/;"	kind:namespace	line:5
+SpeedDPM	../main.py	/^from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM, SpeedPercent$/;"	kind:namespace	line:7
+SpeedDPS	../main.py	/^from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM, SpeedPercent$/;"	kind:namespace	line:7
+SpeedPercent	../main.py	/^from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM, SpeedPercent$/;"	kind:namespace	line:7
+SpeedRPM	../main.py	/^from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM, SpeedPercent$/;"	kind:namespace	line:7
+SpeedRPS	../main.py	/^from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM, SpeedPercent$/;"	kind:namespace	line:7
+__call__	../move_straight.py	/^    def __call__(self,centimeters):$/;"	kind:member	line:51
+__call__	../pid.py	/^    def __call__(self, error):$/;"	kind:member	line:20
+__call__	../rotation.py	/^    def __call__(self, abs_degrees):$/;"	kind:member	line:24
+__call__	../rotation_by_rot_speed.py	/^    def __call__(self, abs_degrees):$/;"	kind:member	line:33
+__init__	../calc_distances.py	/^    def __init__(self, coords):$/;"	kind:member	line:4
+__init__	../calc_distances.py	/^    def __init__(self, coords, start):$/;"	kind:member	line:14
+__init__	../calc_distances.py	/^    def __init__(self, dictionary):$/;"	kind:member	line:23
+__init__	../gyro_correcter.py	/^    def __init__(self):$/;"	kind:member	line:4
+__init__	../move_straight.py	/^    def __init__(self,left_motor, right_motor, gyro):$/;"	kind:member	line:8
+__init__	../pid.py	/^    def __init__(self, Kp, Ki, Kd, bias=0, max_val=math.inf, min_val=-math.inf, debug=False):$/;"	kind:member	line:6
+__init__	../rotation.py	/^    def __init__(self, motor_left, motor_right, gyro):$/;"	kind:member	line:5
+__init__	../rotation_by_rot_speed.py	/^    def __init__(self, motor_left, motor_right, gyro):$/;"	kind:member	line:5
+__str__	../calc_distances.py	/^    def __str__(self):$/;"	kind:member	line:10
+_bell_curve	../pid.py	/^def _bell_curve(i):$/;"	kind:function	line:51
+_cm_moved	../move_straight.py	/^    def _cm_moved(self,time_passed):$/;"	kind:member	line:40
+angle	../gyro_correcter.py	/^    def angle(self):$/;"	kind:member	line:20
+angle	../move_straight.py	/^    angle=0$/;"	kind:variable	line:130
+beep	../main.py	/^def beep(number_of_beeps=1, seconds=1, frequency=1000):$/;"	kind:function	line:25
+calc_angle	../rotation_by_rot_speed.py	/^    def calc_angle(self, time_delta):$/;"	kind:member	line:26
+calc_distances	../.test.py	/^fimport calc_distances$/;"	kind:namespace	line:1
+calc_distances.py	../calc_distances.py	1;"	kind:file	line:1
+calculate_distance	../calc_distances.py	/^    def calculate_distance(self, coords):$/;"	kind:member	line:8
+calculate_next	../calc_distances.py	/^    def calculate_next(self, current_coords):$/;"	kind:member	line:35
+check_as_visited	../calc_distances.py	/^    def check_as_visited(self):$/;"	kind:member	line:43
+control	../pid.py	/^        control = pid(-_bell_curve(i))$/;"	kind:variable	line:68
+copy	../.test.py	/^import copy$/;"	kind:namespace	line:3
+debug_print	../main.py	/^def debug_print(*args, **kwargs):$/;"	kind:function	line:19
+debug_print	../move_straight.py	/^    def debug_print(self, *args, **kwargs):$/;"	kind:member	line:30
+get_locations	../.test.py	/^def get_locations(file='zemljevid.json'):$/;"	kind:function	line:4
+get_locations	../main.py	/^def get_locations(file='zemljevid.json'):$/;"	kind:function	line:36
+get_locations_url	../main.py	/^def get_locations_url(url):$/;"	kind:function	line:30
+gyro_correcter.py	../gyro_correcter.py	1;"	kind:file	line:1
+gyro_dummy	../move_straight.py	/^class gyro_dummy:$/;"	kind:class	line:129
+i	../pid.py	/^    i=0$/;"	kind:variable	line:65
+iter	../pid.py	/^    iter = 20$/;"	kind:variable	line:64
+json	../.test.py	/^import json$/;"	kind:namespace	line:2
+json	../main.py	/^import json$/;"	kind:namespace	line:8
+lego	../gyro_correcter.py	/^from ev3dev2.sensor import lego$/;"	kind:namespace	line:1
+main.py	../main.py	1;"	kind:file	line:1
+math	../calc_distances.py	/^import math$/;"	kind:namespace	line:1
+math	../move_straight.py	/^import math$/;"	kind:namespace	line:3
+math	../pid.py	/^import math$/;"	kind:namespace	line:3
+move	../main.py	/^def move(current_location, next_location):$/;"	kind:function	line:60
+move_straight	../main.py	/^def move_straight(centimeters):$/;"	kind:function	line:51
+move_straight	../move_straight.py	/^    move_straight = MoveStraight(tp,gyro_dummy())$/;"	kind:variable	line:135
+move_straight.py	../move_straight.py	1;"	kind:file	line:1
+off	../move_straight.py	/^    def off(self, **kwargs):$/;"	kind:member	line:125
+on	../move_straight.py	/^    def on(self, **kwargs):$/;"	kind:member	line:123
+os	../main.py	/^import os$/;"	kind:namespace	line:9
+os	../move_straight.py	/^import os$/;"	kind:namespace	line:6
+os	../rotation.py	/^import os$/;"	kind:namespace	line:2
+os	../rotation_by_rot_speed.py	/^import os$/;"	kind:namespace	line:2
+pid	../pid.py	/^    pid = PID(100,10,10)$/;"	kind:variable	line:61
+pid.py	../pid.py	1;"	kind:file	line:1
+print_to_file	../move_straight.py	/^    def print_to_file(self, string):$/;"	kind:member	line:36
+print_to_file	../rotation.py	/^    def print_to_file(self, string):$/;"	kind:member	line:20
+print_to_file	../rotation_by_rot_speed.py	/^    def print_to_file(self, string):$/;"	kind:member	line:22
+r	../pid.py	/^        r = random.random() if random.random() > 0.5 else 0$/;"	kind:variable	line:70
+random	../pid.py	/^    import random$/;"	kind:namespace	line:60
+request	../main.py	/^import urllib.request$/;"	kind:namespace	line:11
+reset	../pid.py	/^    def reset(self):$/;"	kind:member	line:46
+rotate	../main.py	/^def rotate(current_orientation, goal_orientation):$/;"	kind:function	line:57
+rotation.py	../rotation.py	1;"	kind:file	line:1
+rotation_by_rot_speed.py	../rotation_by_rot_speed.py	1;"	kind:file	line:1
+sleep	../main.py	/^from time import sleep$/;"	kind:namespace	line:4
+sys	../main.py	/^import sys$/;"	kind:namespace	line:10
+sys	../move_straight.py	/^import sys$/;"	kind:namespace	line:5
+t	../.test.py	/^t = calc_distances.CalcDistances(get_locations())$/;"	kind:variable	line:9
+time	../gyro_correcter.py	/^import time$/;"	kind:namespace	line:2
+time	../move_straight.py	/^import time$/;"	kind:namespace	line:4
+time	../pid.py	/^import time$/;"	kind:namespace	line:2
+time	../rotation.py	/^import time$/;"	kind:namespace	line:3
+time	../rotation_by_rot_speed.py	/^import time$/;"	kind:namespace	line:3
+tp	../move_straight.py	/^    tp = tp_dummy()$/;"	kind:variable	line:134
+tp_dummy	../move_straight.py	/^class tp_dummy:$/;"	kind:class	line:122
+turn_left_by_degrees	../main.py	/^def turn_left_by_degrees(degrees):$/;"	kind:function	line:41
+turn_right_by_degrees	../main.py	/^def turn_right_by_degrees(degrees):$/;"	kind:function	line:46
+urllib	../main.py	/^import urllib.request$/;"	kind:namespace	line:11
+val	../pid.py	/^        val = val + control + r$/;"	kind:variable	line:71
+val	../pid.py	/^    val = 5$/;"	kind:variable	line:62
+wait_until_angle_changed_by	../gyro_correcter.py	/^    def wait_until_angle_changed_by(self, delta, direction_sensitive=False):$/;"	kind:member	line:17
+wanted_val	../pid.py	/^    wanted_val = 0$/;"	kind:variable	line:63
