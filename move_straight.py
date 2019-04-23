@@ -38,7 +38,7 @@ class MoveStraight:
             f.write(string)
 
     def _cm_moved(self,time_passed):
-        self.debug_print(self.left_motor.speed,",",self.right_motor.speed)
+        #self.debug_print(self.left_motor.speed,",",self.right_motor.speed)
         cnts_p_s = (self.left_motor.speed+self.right_motor.speed)/2
         cnts_p_rot = self.left_motor.count_per_rot
         rot_p_s = cnts_p_s/cnts_p_rot
