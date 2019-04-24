@@ -31,7 +31,7 @@ def get_locations_url(url):
     res = urllib.request.urlopen(url)
     data = res.read()
     txt = data.decode("utf-8")
-    return json.load(txt)
+    return json.loads(txt)
 
 def get_locations(file='zemljevid.json'):
     # read file
@@ -45,7 +45,10 @@ if __name__ == "__main__":
     # FIXME!!!!!!: bug učasih pri rotaciji senzor daje da je naredu kot 90 uresnic je pa ene 190
     os.system('setfont Lat15-TerminusBold14')
     debug_print("start")
-    points = CalcDistances(get_locations())
+    
+    points = CalcDistances(get_locations_url("http://192.168.0.200:8080/zemljevid.json"))
+    #points = CalcDistances(get_locations())
+
     debug_print(str(points.next_person.coords))
     cl = ColorSensor()
     gyro = GyroSensor()
@@ -57,8 +60,13 @@ if __name__ == "__main__":
     move_to_point = MoveFromPointToPoint(move_straight, rotate, gyro, points.start)
     color_checker = ColorChecker(cl, sound)
     beep(seconds=0.5)
-    
     time.sleep(1)
+
+    move_straight(100)
+
+    #move_straight(-100)
+    
+    sys,exit(0)
 
     color_checker()
 

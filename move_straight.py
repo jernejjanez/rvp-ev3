@@ -13,8 +13,9 @@ class MoveStraight:
         self.right_motor = right_motor
         
         # 5,1,15 je najbolš do zdej
-        self.pid_rotation = PID(5,1,15, max_val=self.left_motor.max_speed*0.25, min_val=-self.left_motor.max_speed*0.25, debug=True)
-        self.pid_straight = PID(80,0,0, max_val=self.left_motor.max_speed-self.left_motor.max_speed*0.25, min_val=-self.left_motor.max_speed+self.left_motor.max_speed*0.25, debug=True)
+        self.pid_rotation_plus = PID(5,1,15, max_val=self.left_motor.max_speed*0.25, min_val=-self.left_motor.max_speed*0.25, debug=True)
+        self.pid_rotation_minus = PID(2,0,0, max_val=self.left_motor.max_speed*0.25, min_val=-self.left_motor.max_speed*0.25, debug=True)
+        self.pid_straight = PID(40,0,0, max_val=(self.left_motor.max_speed-self.left_motor.max_speed*0.25)*3/4, min_val=(-self.left_motor.max_speed+self.left_motor.max_speed*0.25)*3/4, debug=True)
         print(self.left_motor.max_speed)
         self.time_period = 0.1 # s
         self.gyro = gyro
@@ -24,7 +25,7 @@ class MoveStraight:
         # r = 1.84 cm alpa (kolo) hitrost 1560 °/s
         # r = 2.744 cm hitrost 1050 °/s
         # TODO: prevert te cifre
-        self.r = 2.35 #polmer
+        self.r = 2.744 #polmer
         self.speed_deg_per_s = 1050 # °/s
         
     def debug_print(self, *args, **kwargs):
@@ -49,6 +50,13 @@ class MoveStraight:
         return rot_p_s*time_passed*2*math.pi*self.r
 
     def __call__(self,centimeters):
+        if centimeters > 0:
+            self.pid_rotation = self.pid_rotation_plus
+        elif centimeters < 0:
+            self.pid_rotation = self.pid_rotation_minus
+        else:
+            self.debug_print(str(centimeters))
+            return
         self.left_motor.ramp_up_sp = 3000
         self.right_motor.ramp_up_sp = 3000
         #self.__init__(self.left_motor,self.right_motor, self.gyro)
@@ -71,6 +79,8 @@ class MoveStraight:
                 self.left_motor.speed_sp = 0
                 self.right_motor.speed_sp = 0
                 self.pid_rotation.reset()
+                self.pid_rotation_minus.reset()
+                self.pid_rotation_plus.reset()
                 self.pid_straight.reset()
                 self.print_to_file("...end-straight...\n")
                 break
