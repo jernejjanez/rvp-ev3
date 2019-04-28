@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import math
 
 class Coordinates:
@@ -7,6 +8,7 @@ class Coordinates:
 
     def calculate_distance(self, coords):
         return abs(self.x - coords.x) + abs(self.y - coords.y)
+        
     def __str__(self):
         return "x: {}, y: {}".format(self.x,self.y)
 
@@ -16,9 +18,6 @@ class Person:
         self.checked = False
         self.distance_from_start = self.coords.calculate_distance(start)
     
-    
-
-
 class CalcDistances:
     def __init__(self, dictionary):
         self.start = Coordinates(dictionary["start"])

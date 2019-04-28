@@ -15,7 +15,7 @@ class PID:
         self.bias = bias
         self.max_val = max_val
         self.min_val = min_val
-        self.debug=debug
+        self.debug = debug
 
     def __call__(self, error):
         current_time = time.time()

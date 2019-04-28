@@ -1,10 +1,13 @@
+#!/usr/bin/env python3
 from calc_distances import Coordinates
 import sys
+
 def debug_print(*args, **kwargs):
     '''Print debug messages to stderr.
     This shows up in the output panel in VS Code. 
     '''
     print(*args, **kwargs, file=sys.stderr)
+
 class MoveFromPointToPoint:
     def __init__(self, move_straight, rotate, gyro, start):
         self.move_straight = move_straight

@@ -1,6 +1,9 @@
+#!/usr/bin/env python3
 from pid import PID
 import os
 import time
+
+
 class Rotation:
     def __init__(self, motor_left, motor_right, gyro):
         self.left_motor = motor_left

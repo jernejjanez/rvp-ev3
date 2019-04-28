@@ -16,6 +16,7 @@ from calc_distances import *
 from move_from_point_to_point import MoveFromPointToPoint
 from color_checker import ColorChecker
 
+
 def debug_print(*args, **kwargs):
     '''Print debug messages to stderr.
     This shows up in the output panel in VS Code. 
@@ -39,15 +40,13 @@ def get_locations(file='zemljevid.json'):
         return json.load(data)
 
 
-
-
 if __name__ == "__main__":
     # FIXME!!!!!!: bug učasih pri rotaciji senzor daje da je naredu kot 90 uresnic je pa ene 190
     os.system('setfont Lat15-TerminusBold14')
     debug_print("start")
     
-    points = CalcDistances(get_locations_url("http://192.168.0.200:8080/zemljevid.json"))
-    #points = CalcDistances(get_locations())
+    # points = CalcDistances(get_locations_url("http://192.168.0.200:8080/zemljevid.json"))
+    points = CalcDistances(get_locations())
 
     debug_print(str(points.next_person.coords))
     cl = ColorSensor()
@@ -60,13 +59,13 @@ if __name__ == "__main__":
     move_to_point = MoveFromPointToPoint(move_straight, rotate, gyro, points.start)
     color_checker = ColorChecker(cl, sound)
     beep(seconds=0.5)
-    time.sleep(1)
+    # time.sleep(1)
 
     move_straight(100)
-
-    #move_straight(-100)
-    
-    sys,exit(0)
+    move_straight(-100)
+    move_straight(100)
+    move_straight(-100)
+    sys.exit(0)
 
     color_checker()
 
