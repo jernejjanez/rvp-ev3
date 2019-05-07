@@ -43,3 +43,17 @@ class CalcDistances:
         if self.next_person:
             self.next_person.checked = True
             self.next_person = None
+
+    def make_square(self, current_coords, size):
+        square = []
+        square.append(Coordinates([current_coords.x, current_coords.y+size]))
+        square.append(Coordinates([current_coords.x, current_coords.y-size]))
+        square.append(Coordinates([current_coords.x+size, current_coords.y-size]))
+        square.append(Coordinates([current_coords.x+size, current_coords.y]))
+        square.append(Coordinates([current_coords.x+size, current_coords.y+size]))
+        square.append(Coordinates([current_coords.x-size, current_coords.y-size]))
+        square.append(Coordinates([current_coords.x-size, current_coords.y]))
+        square.append(Coordinates([current_coords.x-size, current_coords.y+size]))
+        square.append(Coordinates([current_coords.x, current_coords.y]))
+        
+        return square

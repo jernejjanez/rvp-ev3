@@ -61,11 +61,11 @@ if __name__ == "__main__":
     beep(seconds=0.5)
     # time.sleep(1)
 
-    move_straight(100)
+    """ move_straight(100)
     move_straight(-100)
     move_straight(100)
     move_straight(-100)
-    sys.exit(0)
+    sys.exit(0) """
 
     color_checker()
 
@@ -76,11 +76,28 @@ if __name__ == "__main__":
         color = color_checker()
         points.check_as_visited()
 
-        if color == "blue" or color == "yellow" or color == "brown": # FIXME: zbris brown
+        if color == "blue" or color == "yellow":
             move_to_point(points.start)
             color = color_checker()
             points.calculate_next(points.start)
+        elif color == "red":
+            points.calculate_next(point_to_move)
         else:
+            close_points = points.make_square(point_to_move, 8)
+            for point in close_points:
+                debug_print(point)
+                move_to_point(point)
+                color = color_checker()
+                if color == "blue" or color == "yellow":
+                    debug_print("found color", color)
+                    move_to_point(points.start)
+                    break
+                elif color == "red":
+                    points.calculate_next(point)
+                    break
+                else:
+                    point_to_move = point
+
             points.calculate_next(point_to_move)
     move_to_point(points.start)
     color_checker()
