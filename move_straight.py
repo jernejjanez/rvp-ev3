@@ -17,8 +17,8 @@ class MoveStraight:
         self.left_motor.ramp_down_sp, self.right_motor.ramp_down_sp = 1000, 1000
         
         # 5,1,15 je najbolš do zdej
-        self.pid_rotation_plus = PID(5,1,15, max_val=self.left_motor.max_speed*0.25, min_val=-self.left_motor.max_speed*0.25, debug=True)
-        self.pid_rotation_minus = PID(2,0,10, max_val=self.left_motor.max_speed*0.25, min_val=-self.left_motor.max_speed*0.25, debug=True)
+        self.pid_rotation_plus = PID(2,0,10, max_val=self.left_motor.max_speed*0.10, min_val=-self.left_motor.max_speed*0.10, debug=True)
+        self.pid_rotation_minus = PID(2,0,10, max_val=self.left_motor.max_speed*0.10, min_val=-self.left_motor.max_speed*0.10, debug=True)
         self.pid_straight = PID(40,0,0, max_val=(self.left_motor.max_speed-self.left_motor.max_speed*0.25)*0.5, 
                                         min_val=(-self.left_motor.max_speed+self.left_motor.max_speed*0.25)*0.5, debug=True)
         print(self.left_motor.max_speed)

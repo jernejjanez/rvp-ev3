@@ -45,8 +45,8 @@ if __name__ == "__main__":
     os.system('setfont Lat15-TerminusBold14')
     debug_print("start")
     
-    # points = CalcDistances(get_locations_url("http://192.168.0.200:8080/zemljevid.json"))
-    points = CalcDistances(get_locations())
+    points = CalcDistances(get_locations_url("http://192.168.0.200:8080/zemljevid.json"))
+    # points = CalcDistances(get_locations())
 
     debug_print(str(points.next_person.coords))
     cl = ColorSensor()
@@ -60,16 +60,17 @@ if __name__ == "__main__":
     color_checker = ColorChecker(cl, sound)
     beep(seconds=0.5)
     # time.sleep(1)
-
-    """ move_straight(100)
-    move_straight(-100)
-    move_straight(100)
-    move_straight(-100)
-    sys.exit(0) """
-
+    
+    move_straight(200)
+    move_straight(-200)
+    move_straight(200)
+    move_straight(-200)
+    sys.exit(0)
+    
     color_checker()
 
     while points.next_person:
+        debug_print("Current gyro:",gyro.angle())
         point_to_move = points.next_person.coords
         debug_print(point_to_move)
         move_to_point(point_to_move)
@@ -83,14 +84,15 @@ if __name__ == "__main__":
         elif color == "red":
             points.calculate_next(point_to_move)
         else:
-            close_points = points.make_square(point_to_move, 8)
+            close_points = points.make_square(point_to_move, 5)
             for point in close_points:
-                debug_print(point)
+                #debug_print(point)
                 move_to_point(point)
                 color = color_checker()
                 if color == "blue" or color == "yellow":
                     debug_print("found color", color)
                     move_to_point(points.start)
+                    point_to_move = point
                     break
                 elif color == "red":
                     points.calculate_next(point)
