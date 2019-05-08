@@ -40,6 +40,32 @@ def get_locations(file='zemljevid.json'):
         return json.load(data)
 
 
+def find_the_body(coords,move_to_point, color_checker, points):
+    move_to_point(coords)
+    color = color_checker()
+    if color in ["blue","red","yellow","black"]:
+        return color
+    
+    
+    else:
+        close_points = points.make_square(coords, 5)
+        for point in close_points:
+            #debug_print(point)
+            move_to_point(point)
+            color = color_checker()
+            if color in ["blue","red","yellow","black"]:
+                move_to_point.current_position = coords
+                return color
+        close_points = points.make_square(coords, 10)
+        for point in close_points:
+            #debug_print(point)
+            move_to_point(point)
+            color = color_checker()
+            if color in ["blue","red","yellow","black"]:
+                move_to_point.current_position = coords
+                return color
+
+
 if __name__ == "__main__":
     # FIXME!!!!!!: bug učasih pri rotaciji senzor daje da je naredu kot 90 uresnic je pa ene 190
     os.system('setfont Lat15-TerminusBold14')
@@ -61,29 +87,31 @@ if __name__ == "__main__":
     beep(seconds=0.5)
     # time.sleep(1)
     
-    move_straight(200)
-    move_straight(-200)
-    move_straight(200)
-    move_straight(-200)
+    move_straight(20)
+    move_straight(-20)
+    move_straight(20)
+    move_straight(-20)
     sys.exit(0)
     
     color_checker()
-
+    is_on_start = False
     while points.next_person:
         debug_print("Current gyro:",gyro.angle())
         point_to_move = points.next_person.coords
-        debug_print(point_to_move)
-        move_to_point(point_to_move)
-        color = color_checker()
+        #debug_print(point_to_move)
+        #move_to_point(point_to_move)
+        color = find_the_body(point_to_move,move_to_point,color_checker,points)
         points.check_as_visited()
-
+        is_on_start = False
         if color == "blue" or color == "yellow":
-            move_to_point(points.start)
-            color = color_checker()
+            color = find_the_body(points.start,move_to_point,color_checker,points)
+            is_on_start = True
             points.calculate_next(points.start)
         elif color == "red":
             points.calculate_next(point_to_move)
         else:
+            debug_print("RIP ME")
+            '''
             close_points = points.make_square(point_to_move, 5)
             for point in close_points:
                 #debug_print(point)
@@ -99,9 +127,10 @@ if __name__ == "__main__":
                     break
                 else:
                     point_to_move = point
-
+            '''            
             points.calculate_next(point_to_move)
-    move_to_point(points.start)
-    color_checker()
+    if not is_on_start:
+        color = find_the_body(points.start,move_to_point,color_checker,points)
+    
 
     
