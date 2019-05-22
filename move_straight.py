@@ -28,7 +28,8 @@ class MoveStraight:
         os.system("cat debug.log >> debug.log.old; rm debug.log")
 
         # r = 1.84 cm alpa (kolo) hitrost 1560 °/s
-        # r = 2.744 cm hitrost 1050 °/s
+        # r = 2.744 cm hitros
+        # t 1050 °/s
         # TODO: prevert te cifre
         self.r = 2.744 #polmer
         self.speed_deg_per_s = 1050 # °/s

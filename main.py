@@ -86,13 +86,13 @@ if __name__ == "__main__":
     color_checker = ColorChecker(cl, sound)
     beep(seconds=0.5)
     # time.sleep(1)
-    
+    '''
     move_straight(20)
     move_straight(-20)
     move_straight(20)
     move_straight(-20)
     sys.exit(0)
-    
+    '''
     color_checker()
     is_on_start = False
     while points.next_person:
